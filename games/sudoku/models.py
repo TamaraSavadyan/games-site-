@@ -1,7 +1,7 @@
-from django.db import models
 import sys
-sys.path.append('/home/tamara/Desktop/games/games/accounts')
-from accounts.models import Account
+sys.path.append('/home/tamara/Desktop/games-site-/games/users')
+from users.models import User
+from django.db import models
 
 # Create your models here.
 class Sudoku(models.Model):
@@ -10,10 +10,10 @@ class Sudoku(models.Model):
     time = models.TimeField()
     dificulty = models.CharField(max_length=20)
 
-    account = models.ForeignKey(Account, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         db_table = 'sudoku'
 
     def __str__(self):
-        return self.account    
+        return self.user    
