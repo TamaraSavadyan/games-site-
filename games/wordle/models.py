@@ -1,8 +1,8 @@
-import sys
-sys.path.append('/home/tamara/Desktop/games-site-/games/users')
-from users.models import User
+# import sys
+# sys.path.append('/home/tamara/Desktop/games-site-/games/users')
+# from users.models import User
 from django.db import models
-from django.conf import settings # for 'settings.AUTH_USER' (if_authenticated)
+from django.conf import settings # for 'settings.AUTH_USER_MODEL' (if_authenticated)
 
 # Create your models here.
 class Wordle(models.Model):
@@ -18,10 +18,10 @@ class Wordle(models.Model):
     fifth_try = models.IntegerField()
     sixth_try = models.IntegerField()
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    account = models.ForeignKey("accounts.Account", on_delete=models.CASCADE, related_name='wordle_game')
 
     class Meta:
         db_table = 'wordle'
 
     def __str__(self):
-        return self.user
+        return self.account

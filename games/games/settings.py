@@ -38,11 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
-    'users',
-    'wordle',
-    'sudoku',
+    'balls',
     'minesweeper',
-    'balls'
+    'sudoku',
+    'accounts',
+    'wordle'
 
 ]
 

@@ -1,6 +1,6 @@
-import sys
-sys.path.append('/home/tamara/Desktop/games-site-/games/users')
-from users.models import User
+# import sys
+# sys.path.append('/home/tamara/Desktop/games-site-/games/users')
+# from users.models import User
 from django.db import models
 
 # Create your models here.
@@ -9,10 +9,10 @@ class Balls(models.Model):
     score = models.IntegerField()
     time = models.TimeField()
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    account = models.ForeignKey("accounts.Account", on_delete=models.CASCADE, related_name='balls_game')
 
     class Meta:
         db_table = 'balls'
 
     def __str__(self):
-        return self.user   
+        return self.account   
