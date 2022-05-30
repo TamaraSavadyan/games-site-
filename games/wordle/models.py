@@ -1,6 +1,3 @@
-# import sys
-# sys.path.append('/home/tamara/Desktop/games-site-/games/users')
-# from users.models import User
 from django.db import models
 from django.conf import settings # for 'settings.AUTH_USER_MODEL' (if_authenticated)
 
