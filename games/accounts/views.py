@@ -8,7 +8,7 @@ from django.views import View
 
 class TestView(View):
     def get(self, request):   
-        return render(request, 'accounts/base.html', {})
+        return render(request, 'accounts/home.html', {})
 
 # Create your views here.
 class AccountCreate(CreateView):
