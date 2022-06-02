@@ -1,5 +1,6 @@
 from django.urls import path
 from .views import (
+    Success,
     AccountCreate,
     AccountUpdate,
     AccountDelete
@@ -7,7 +8,8 @@ from .views import (
 
 app_name = 'accounts'
 urlpatterns = [
-    path('account/register/', AccountCreate.as_view(), name='account_create'),
-    path('account/<int:pk>/update/', AccountUpdate.as_view(), name='account_update'),
-    path('account/<int:pk>/delete/', AccountDelete.as_view(), name='account_delete'),
+    path('success/', Success.as_view(), name='success_page'),
+    path('register/', AccountCreate.as_view(), name='account_create'),
+    path('<int:pk>/update/', AccountUpdate.as_view(), name='account_update'),
+    path('<int:pk>/delete/', AccountDelete.as_view(), name='account_delete'),
 ]
