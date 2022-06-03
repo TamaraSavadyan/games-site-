@@ -22,5 +22,7 @@ urlpatterns = [
     path('', HomeView.as_view(), name='base'),
     path('home/', HomeView.as_view(), name='home'),
     path('account/', include('accounts.urls'), name='accounts'),
+    path('game_wordle/', include('wordle.urls'), name='wordle'),
+
     path('admin/', admin.site.urls),
 ]
