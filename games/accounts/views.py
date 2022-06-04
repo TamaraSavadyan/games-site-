@@ -6,15 +6,9 @@ from .models import Account
 from django.views import View
 
 
-class HomeView(View):
+class AccountView(View):
     def get(self, request):
-        return render(request, 'accounts/home.html', {})
-
-
-class Success(View):
-    def post(self, request):
-        return render(request, 'accounts/success.html', {})
-
+        return render(request, 'accounts/account.html', {})
 
 class AccountCreate(CreateView):
     model = Account

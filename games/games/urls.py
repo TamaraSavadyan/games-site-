@@ -15,14 +15,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from accounts.views import HomeView
+from games.views import HomeView, SuccessView
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
     path('', HomeView.as_view(), name='base'),
     path('home/', HomeView.as_view(), name='home'),
+    path('success/', SuccessView.as_view(), name='success_page'),
+
     path('account/', include('accounts.urls'), name='accounts'),
-    path('game_wordle/', include('wordle.urls'), name='wordle'),
+    path('game-wordle/', include('wordle.urls'), name='game_wordle'),
 
     path('admin/', admin.site.urls),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

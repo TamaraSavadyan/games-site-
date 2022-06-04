@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<p>
+<h1>This is home page!</h1>
+</p>
+<div>
+    <a href="{% url 'wordle:wordle' %}">
+        {% load static %}
+        <img src="{% static 'images/wordle.png' %}" class="rounded float-left" alt="Wordle_Game">
+    </a>
+
+    <!-- <a href="{url 'minesweeper'}">
+        {% load static %}
+        <img src="{% static 'images/minesweeper.png' %}" class="rounded float-left" alt="Minesweeper_Game">
+    </a>
+
+    <a href="{url 'sudoku'}">
+        {% load static %}
+        <img src="{% static 'images/sudoku.png' %}" class="rounded float-left" alt="Sudoku_Games">
+    </a> -->
+</div>
+{% endblock %}
