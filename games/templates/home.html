@@ -5,19 +5,17 @@
 <h1>This is home page!</h1>
 </p>
 <div>
+    {% load static %}
     <a href="{% url 'wordle:wordle' %}">
-        {% load static %}
         <img src="{% static 'images/wordle.png' %}" class="rounded float-left" alt="Wordle_Game">
     </a>
 
-    <!-- <a href="{url 'minesweeper'}">
-        {% load static %}
+    <a href="{% url 'minesweeper:minesweeper' %}">
         <img src="{% static 'images/minesweeper.png' %}" class="rounded float-left" alt="Minesweeper_Game">
     </a>
 
-    <a href="{url 'sudoku'}">
-        {% load static %}
-        <img src="{% static 'images/sudoku.png' %}" class="rounded float-left" alt="Sudoku_Games">
-    </a> -->
+    <a href="{% url 'sudoku:sudoku' %}">
+        <img src="{% static 'images/sudoku.png' %}" class="rounded float-left" alt="Sudoku_Game">
+    </a>
 </div>
 {% endblock %}

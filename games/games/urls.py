@@ -27,6 +27,8 @@ urlpatterns = [
 
     path('account/', include('accounts.urls'), name='accounts'),
     path('game-wordle/', include('wordle.urls'), name='game_wordle'),
+    path('game-minesweeper/', include('minesweeper.urls'), name='game_minesweeper'),
+    path('game-sudoku/', include('sudoku.urls'), name='game_sudoku'),
 
     path('admin/', admin.site.urls),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

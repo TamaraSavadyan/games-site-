@@ -10,6 +10,7 @@ class AccountView(View):
     def get(self, request):
         return render(request, 'accounts/account.html', {})
 
+
 class AccountCreate(CreateView):
     model = Account
     template_name = 'accounts/auth.html'
