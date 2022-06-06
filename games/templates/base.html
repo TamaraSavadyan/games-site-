@@ -10,7 +10,7 @@
 
 </head>
 
-<body>
+<body class="container-sm">
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="{% url 'base' %}">Free-Games</a>
@@ -28,8 +28,8 @@
           </li>
         </ul>
         <form class="d-grid gap-2 d-md-flex justify-content-md-end">
-          <button class="btn btn-outline-primary me-md-2" type="button" style="margin-left: 20px;">Sign In</button>
-          <button class="btn btn-outline-success" type="button" style="margin-left: 5px;">Sign Up</button>
+          <a href="{% url 'accounts:account_create' %}"><button class="btn btn-outline-primary me-md-2" type="button" style="margin-left: 20px;">Sign In</button></a>
+          <a href="{% url 'accounts:account_create' %}"><button class="btn btn-outline-success" type="button" style="margin-left: 5px;">Sign Up</button></a>
         </form>
       </div>
     </div>
