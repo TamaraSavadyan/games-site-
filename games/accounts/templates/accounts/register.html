@@ -1,9 +1,8 @@
-{% extends 'base.html' %}
-
-{% csrf_token %}
+{% extends "base.html" %}
 
 {% block content %}
-<form class="container" style="margin: 15px;">
+<form class="container" style="margin: 15px;" method="post">
+  {% csrf_token %}
   <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Email address</label>
     <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
@@ -21,6 +20,6 @@
     <label for="exampleInputPassword1" class="form-label">Repeat Password</label>
     <input type="password" class="form-control" id="exampleInputPassword1">
   </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" class="btn btn-success">Sign Up</button>
 </form>
-  {% endblock %}
+{% endblock %}

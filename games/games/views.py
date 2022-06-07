@@ -6,5 +6,9 @@ class HomeView(View):
         return render(request, 'home.html', {})
 
 class SuccessView(View):
-    def post(self, request):
+    def get(self, request):
         return render(request, 'success.html', {})
+
+class Error404View(View):
+    def get(self, request):
+        return render(request, '404_page.html', {})        

@@ -15,7 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from games.views import HomeView, SuccessView
+from games.views import (
+    HomeView, 
+    SuccessView,
+    Error404View 
+)
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -24,6 +28,7 @@ urlpatterns = [
     path('', HomeView.as_view(), name='base'),
     path('home/', HomeView.as_view(), name='home'),
     path('success/', SuccessView.as_view(), name='success_page'),
+    path('404-page/', Error404View.as_view(), name='404_page'),
 
     path('account/', include('accounts.urls'), name='accounts'),
     path('game-wordle/', include('wordle.urls'), name='game_wordle'),
