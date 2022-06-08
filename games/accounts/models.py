@@ -21,10 +21,14 @@ class Account(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    balls = models.ForeignKey(Balls, default=None, on_delete=models.CASCADE, related_name='user_account')
-    minesweeper = models.ForeignKey(MineSweeper, default=None, on_delete=models.CASCADE, related_name='user_account')
-    sudoku = models.ForeignKey(Sudoku, default=None, on_delete=models.CASCADE, related_name='user_account')
-    wordle = models.ForeignKey(Wordle, default=None, on_delete=models.CASCADE, related_name='user_account')
+    info = models.TextField(blank=True)
+    profile_pic = models.ImageField(blank=True)
+
+
+    balls = models.OneToOneField(Balls, default=None, on_delete=models.CASCADE, related_name='user_account')
+    minesweeper = models.OneToOneField(MineSweeper, default=None, on_delete=models.CASCADE, related_name='user_account')
+    sudoku = models.OneToOneField(Sudoku, default=None, on_delete=models.CASCADE, related_name='user_account')
+    wordle = models.OneToOneField(Wordle, default=None, on_delete=models.CASCADE, related_name='user_account')
 
     class Meta:
         db_table = 'accounts'

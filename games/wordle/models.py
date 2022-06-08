@@ -4,18 +4,18 @@ from django.conf import settings # for 'settings.AUTH_USER_MODEL' (if_authentica
 # Create your models here.
 class Wordle(models.Model):
     id = models.AutoField(primary_key=True)
-    win_rate = models.IntegerField()
-    time_completion = models.TimeField()
+    win_rate = models.IntegerField(null=True)
+    time_completion = models.TimeField(null=True)
 
-    times_played = models.IntegerField(default=0)
-    first_try = models.IntegerField()
-    second_try = models.IntegerField()
-    three_try = models.IntegerField()
-    fourth_try = models.IntegerField()
-    fifth_try = models.IntegerField()
-    sixth_try = models.IntegerField()
+    times_played = models.IntegerField(null=True)
+    first_try = models.IntegerField(null=True)
+    second_try = models.IntegerField(null=True)
+    three_try = models.IntegerField(null=True)
+    fourth_try = models.IntegerField(null=True)
+    fifth_try = models.IntegerField(null=True)
+    sixth_try = models.IntegerField(null=True)
 
-    account = models.ForeignKey("accounts.Account", on_delete=models.CASCADE, related_name='wordle_game')
+    account = models.OneToOneField("accounts.Account", on_delete=models.CASCADE, related_name='wordle_game')
 
     class Meta:
         db_table = 'wordle'

@@ -3,10 +3,10 @@ from django.db import models
 # Create your models here.
 class Balls(models.Model):
     id = models.AutoField(primary_key=True)
-    score = models.IntegerField()
-    time = models.TimeField()
+    score = models.IntegerField(null=True)
+    time = models.TimeField(null=True)
 
-    account = models.ForeignKey("accounts.Account", on_delete=models.CASCADE, related_name='balls_game')
+    account = models.OneToOneField("accounts.Account", on_delete=models.CASCADE, related_name='balls_game')
 
     class Meta:
         db_table = 'balls'
