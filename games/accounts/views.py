@@ -4,9 +4,9 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views import View
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from .models import Account
-from .forms import AccountForm
+from .forms import AccountCreateForm, AccountLoginForm
 
 
 class AccountView(View):
@@ -20,13 +20,19 @@ class AccountView(View):
 
 
 class AccountLogin(View):
+    template = 'accounts/login.html'
+    success_url = reverse_lazy('success_page')
+
     def get(self, request):
-        return render(request, 'accounts/login.html', {})
+        return render(request, self.template, {})
+    
+    def post(self, request):
+        return redirect(self.success_url)
 
 # class AccountCreate(CreateView):
 #     model = Account
 #     template_name = 'accounts/register.html'
-#     fields = '__all__'
+#     fields = ['email', 'name', 'password']
 #     success_url = reverse_lazy('success_page')
 
 
@@ -36,17 +42,17 @@ class AccountCreate(View):
     success_url = reverse_lazy('success')
 
     def get(self, request):
-        form = AccountForm()
+        form = AccountCreateForm()
         ctx = {'form': form}
         return render(request, self.template, ctx)
 
     def post(self, request):
-        form = AccountForm(request.POST)
+        form = AccountCreateForm(request.POST)
         if not form.is_valid():
             ctx = {'form': form}
             return render(request, self.template, ctx)
 
-        make = form.save()
+        form.save()
         return redirect(self.success_url)
 
 
@@ -61,4 +67,4 @@ class AccountDelete(LoginRequiredMixin, DeleteView):
     model = Account
     template_name = 'accounts/auth.html'
     fields = '__all__'
-    success_url = reverse_lazy('success:success_page')
+    success_url = reverse_lazy('success_page')

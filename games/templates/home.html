@@ -11,11 +11,13 @@
     </a>
 
     <a href="{% url 'minesweeper:minesweeper' %}">
-        <img src="{% static 'images/minesweeper.png' %}" class="rounded float-left" alt="Minesweeper_Game">
+        <img src="{% static 'images/minesweeper.png' %}" class="rounded float-left" alt="Minesweeper_Game"
+        style="margin: 15px;">
     </a>
 
     <a href="{% url 'sudoku:sudoku' %}">
-        <img src="{% static 'images/sudoku.png' %}" class="rounded float-left" alt="Sudoku_Game">
+        <img src="{% static 'images/sudoku.png' %}" class="rounded float-left" alt="Sudoku_Game"
+        style="margin: 15px;">
     </a>
 </div>
 {% endblock %}

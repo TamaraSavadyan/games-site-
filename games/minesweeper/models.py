@@ -2,12 +2,17 @@ from django.db import models
 
 # Create your models here.
 class MineSweeper(models.Model):
-    id = models.AutoField(primary_key=True)
+    id = models.IntegerField(primary_key=True, unique=True)
     win_rate = models.IntegerField(null=True)
     time = models.TimeField(null=True)
     difficulty = models.CharField(max_length=20, null=True)
 
     account = models.OneToOneField("accounts.Account", on_delete=models.CASCADE, related_name='minesweeper_game')
+
+    @classmethod
+    def create(cls, id):
+        minesweeper = cls(id=id)
+        return minesweeper
 
     class Meta:
         db_table = 'minesweeper'

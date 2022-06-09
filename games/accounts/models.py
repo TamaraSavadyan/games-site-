@@ -15,9 +15,10 @@ from django.core.validators import MinLengthValidator
 class Account(models.Model):
     id = models.AutoField(primary_key=True)
     email = models.EmailField(max_length=200, unique=True)
-    name = models.CharField(max_length=100)
-    password = models.CharField(max_length=50, 
+    username = models.CharField(max_length=100)
+    password = models.CharField(max_length=80, 
                                 validators=[MinLengthValidator(8, 'Password must contain more than 8 characters')])
+    
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -25,10 +26,10 @@ class Account(models.Model):
     profile_pic = models.ImageField(blank=True)
 
 
-    balls = models.OneToOneField(Balls, default=None, on_delete=models.CASCADE, related_name='user_account')
-    minesweeper = models.OneToOneField(MineSweeper, default=None, on_delete=models.CASCADE, related_name='user_account')
-    sudoku = models.OneToOneField(Sudoku, default=None, on_delete=models.CASCADE, related_name='user_account')
-    wordle = models.OneToOneField(Wordle, default=None, on_delete=models.CASCADE, related_name='user_account')
+    balls = models.OneToOneField(Balls, on_delete=models.CASCADE, related_name='user_account')
+    minesweeper = models.OneToOneField(MineSweeper, on_delete=models.CASCADE, related_name='user_account')
+    sudoku = models.OneToOneField(Sudoku, on_delete=models.CASCADE, related_name='user_account')
+    wordle = models.OneToOneField(Wordle, on_delete=models.CASCADE, related_name='user_account')
 
     class Meta:
         db_table = 'accounts'

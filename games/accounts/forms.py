@@ -1,8 +1,14 @@
 from django.forms import ModelForm
 from .models import Account
 
-# Create the form class.
-class AccountForm(ModelForm):
-    class Meta:
-        model = Account
-        fields = ['email', 'name', 'password']
+
+class AccountCreateForm(ModelForm):
+	class Meta:
+		model = Account
+		fields = ['email', 'username', 'password']
+		
+
+class AccountLoginForm(ModelForm):
+	class Meta:
+		model = Account
+		fields = ['email', 'password']		
