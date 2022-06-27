@@ -6,7 +6,8 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views import View
 from django.urls import reverse_lazy, reverse
 from .models import Account
-from .forms import AccountCreateForm, AccountLoginForm
+from .forms import RegisterForm
+from django.contrib.auth.models import User
 
 
 class AccountView(View):
@@ -35,25 +36,43 @@ class AccountLogin(View):
 #     fields = ['email', 'name', 'password']
 #     success_url = reverse_lazy('success_page')
 
-
+# TODO: I'm here working on it 
 class AccountCreate(View):
-    model = Account
+    model = User
     template = 'accounts/register.html'
-    success_url = reverse_lazy('success')
+    success_url = reverse_lazy('success_page')
 
     def get(self, request):
-        form = AccountCreateForm()
+        form = RegisterForm()
         ctx = {'form': form}
         return render(request, self.template, ctx)
 
     def post(self, request):
-        form = AccountCreateForm(request.POST)
+        form = RegisterForm(request.POST)
         if not form.is_valid():
             ctx = {'form': form}
             return render(request, self.template, ctx)
 
         form.save()
-        return redirect(self.success_url)
+        return redirect(self.success_url)    
+
+    # model = Account
+    # template = 'accounts/register.html'
+    # success_url = reverse_lazy('success')
+
+    # def get(self, request):
+    #     form = AccountCreateForm()
+    #     ctx = {'form': form}
+    #     return render(request, self.template, ctx)
+
+    # def post(self, request):
+    #     form = AccountCreateForm(request.POST)
+    #     if not form.is_valid():
+    #         ctx = {'form': form}
+    #         return render(request, self.template, ctx)
+
+    #     form.save()
+    #     return redirect(self.success_url)
 
 
 class AccountUpdate(LoginRequiredMixin, UpdateView):

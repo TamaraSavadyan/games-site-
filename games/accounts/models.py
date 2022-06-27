@@ -9,15 +9,14 @@ from sudoku.models import Sudoku
 from wordle.models import Wordle
 
 from django.db import models
-from django.core.validators import MinLengthValidator
+from django.contrib.auth.models import User 
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 # Create your models here.
 class Account(models.Model):
     id = models.AutoField(primary_key=True)
-    email = models.EmailField(max_length=200, unique=True)
-    username = models.CharField(max_length=100)
-    password = models.CharField(max_length=80, 
-                                validators=[MinLengthValidator(8, 'Password must contain more than 8 characters')])
+    user = models.OneToOneField(User, on_delete=models.CASCADE, default=0)
     
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -35,4 +34,13 @@ class Account(models.Model):
         db_table = 'accounts'
 
     def __str__(self):
-        return self.email
+        return self.user
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Account.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()

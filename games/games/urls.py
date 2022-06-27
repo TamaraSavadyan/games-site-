@@ -31,6 +31,7 @@ urlpatterns = [
     path('404-page/', Error404View.as_view(), name='404_page'),
 
     path('account/', include('accounts.urls'), name='accounts'),
+    path('account/', include('django.contrib.auth.urls')),
     path('game-wordle/', include('wordle.urls'), name='game_wordle'),
     path('game-minesweeper/', include('minesweeper.urls'), name='game_minesweeper'),
     path('game-sudoku/', include('sudoku.urls'), name='game_sudoku'),

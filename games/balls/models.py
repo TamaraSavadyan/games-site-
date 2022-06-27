@@ -1,4 +1,7 @@
 from django.db import models
+from django.dispatch import receiver
+from django.db.models.signals import post_save
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Balls(models.Model):
@@ -8,11 +11,10 @@ class Balls(models.Model):
 
     account = models.OneToOneField("accounts.Account", on_delete=models.CASCADE, related_name='balls_game')
     
-    @classmethod
-    def create(cls, id):
-        balls = cls(id=id)
-        # do something with the book
-        return balls
+    @receiver(post_save, sender="accounts.Account")
+    def balls_create(sender, instance=None, created=False, **kwargs):
+        if created:
+            Balls.objects.create(user=instance,)
     
     class Meta:
         db_table = 'balls'
