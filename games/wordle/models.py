@@ -1,5 +1,7 @@
 from django.db import models
 from django.conf import settings # for 'settings.AUTH_USER_MODEL' (if_authenticated)
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 
 # Create your models here.
 class Wordle(models.Model):
@@ -15,15 +17,16 @@ class Wordle(models.Model):
     fifth_try = models.IntegerField(null=True)
     sixth_try = models.IntegerField(null=True)
 
-    account = models.OneToOneField("accounts.Account", on_delete=models.CASCADE, related_name='wordle_game')
-
-    @classmethod
-    def create(cls, id):
-        wordle = cls(id=id)
-        return wordle
+    # account = models.OneToOneField("accounts.Account", on_delete=models.CASCADE, related_name='wordle_game')
 
     class Meta:
         db_table = 'wordle'
 
-    def __str__(self):
-        return self.account
+# @receiver(post_save, sender="accounts.Account")
+# def create_account_wordle(sender, instance, created, **kwargs):
+#     if created:
+#         Wordle.objects.create(account=instance)
+
+# @receiver(post_save, sender="accounts.Account")
+# def save_account_wordle(sender, instance, **kwargs):
+#     instance.wordle.save()                

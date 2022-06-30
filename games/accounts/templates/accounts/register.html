@@ -7,8 +7,9 @@
 {% block content %}
 <form method="POST" class="form-group">
   {% csrf_token %}
-  {{ form|crispy }}
-  <button type="submit" class="btn btn-success">Register</button>
+  {{ form.as_p }}
+  <button type="submit" class="btn btn-success">Sign Up</button>
+  <a href="{% url 'home' %}"><button class="btn btn-danger" type="button">Cancel</button></a>
 </form>
 {% endblock %}
 

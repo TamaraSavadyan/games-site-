@@ -1,4 +1,6 @@
 from django.db import models
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 
 # Create your models here.
 class Sudoku(models.Model):
@@ -7,15 +9,17 @@ class Sudoku(models.Model):
     time = models.TimeField(null=True)
     dificulty = models.CharField(max_length=20, null=True)
 
-    account = models.OneToOneField("accounts.Account", on_delete=models.CASCADE, related_name='sudoku_game')
-
-    @classmethod
-    def create(cls, id):
-        sudoku = cls(id=id)
-        return sudoku
+    # account = models.OneToOneField("accounts.Account", on_delete=models.CASCADE, related_name='sudoku_game')
 
     class Meta:
         db_table = 'sudoku'
 
-    def __str__(self):
-        return self.account
+
+# @receiver(post_save, sender="accounts.Account")
+# def create_account_sudoku(sender, instance, created, **kwargs):
+#     if created:
+#         Sudoku.objects.create(account=instance)
+
+# @receiver(post_save, sender="accounts.Account")
+# def save_account_sudoku(sender, instance, **kwargs):
+#     instance.sudoku.save()        
