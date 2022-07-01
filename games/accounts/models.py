@@ -16,13 +16,13 @@ from django.contrib.auth.models import User
 
 # Create your models here
 class Account(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, default=0)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    info = models.TextField(blank=True)
-    profile_pic = models.ImageField(blank=True)
+    info = models.TextField(null=True)
+    profile_pic = models.ImageField(null=True)
 
     balls = models.OneToOneField(
         Balls, on_delete=models.CASCADE, related_name='user_account')

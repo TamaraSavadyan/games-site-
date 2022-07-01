@@ -5,7 +5,7 @@ from .models import Sudoku
 @receiver(post_save, sender="accounts.Account")
 def create_account_sudoku(sender, instance, created, **kwargs):
     if created:
-        Sudoku.objects.create(account=instance)
+        Sudoku.objects.create(account=instance, id=instance.id)
 
 @receiver(post_save, sender="accounts.Account")
 def save_account_sudoku(sender, instance, **kwargs):
