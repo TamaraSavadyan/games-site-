@@ -1,13 +1,14 @@
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from .models import MineSweeper
+from accounts.models import Account
 
 
-@receiver(post_save, sender="accounts.Account")
+@receiver(post_save, sender=Account)
 def create_account_minesweeper(sender, instance, created, **kwargs):
     if created:
-        MineSweeper.objects.create(account=instance, id=instance.id)
+        MineSweeper.objects.create(account=instance)
 
-@receiver(post_save, sender="accounts.Account")
+@receiver(post_save, sender=Account)
 def save_account_minesweeper(sender, instance, **kwargs):
     instance.minesweeper.save()
