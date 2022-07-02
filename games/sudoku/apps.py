@@ -6,4 +6,4 @@ class SudokuConfig(AppConfig):
     name = 'sudoku'
 
     def ready(self):
-        from . import signals
+        import sudoku.signals

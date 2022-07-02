@@ -6,4 +6,4 @@ class BallsConfig(AppConfig):
     name = 'balls'
 
     def ready(self):
-        from . import signals
+        import balls.signals

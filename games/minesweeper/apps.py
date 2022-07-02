@@ -6,4 +6,4 @@ class MinesweeperConfig(AppConfig):
     name = 'minesweeper'
 
     def ready(self):
-        from . import signals
+        import minesweeper.signals

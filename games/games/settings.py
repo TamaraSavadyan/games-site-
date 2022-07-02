@@ -41,11 +41,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crispy_forms',
     'rest_framework',
-    'balls',
-    'accounts',
-    'minesweeper',
-    'sudoku',
-    'wordle'
+    'balls.apps.BallsConfig',
+    'accounts.apps.AccountsConfig',
+    'minesweeper.apps.MinesweeperConfig',
+    'sudoku.apps.SudokuConfig',
+    'wordle.apps.WordleConfig'
 
 ]
 

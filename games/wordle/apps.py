@@ -6,4 +6,4 @@ class WordleConfig(AppConfig):
     name = 'wordle'
 
     def ready(self):
-        from . import signals
+        import wordle.signals
