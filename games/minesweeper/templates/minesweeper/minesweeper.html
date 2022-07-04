@@ -1,7 +1,19 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <title>Minesweeper</title>
+  {% load static %}
+  <link rel="stylesheet" href="style.css"></link>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
 
-{% block content %}
-<p>
-    <h2> Minesweeper!!! </h2>
-</p>
-{% endblock %}
+  <div class="container">
+    <div class="grid"></div>
+    <div>Flags left: <span id='flags-left'></span></div>
+    <div id="result"></div>
+  </div>
+  <script src="app.js" charset="utf-8"></script>
+</body>
+</html>

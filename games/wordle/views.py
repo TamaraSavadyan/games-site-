@@ -6,3 +6,4 @@ from django.views import View
 class WordleView(View):
     def get(self, request):
         return render(request, 'wordle/wordle.html', {})
+        # return render(request, 'wordle/test_wordle.html', {})

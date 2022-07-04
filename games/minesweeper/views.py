@@ -6,3 +6,4 @@ from django.views import View
 class MinesweeperView(View):
     def get(self, request):
         return render(request, 'minesweeper/minesweeper.html', {})
+        # return render(request, 'minesweeper/test_minesweeper.html', {})
