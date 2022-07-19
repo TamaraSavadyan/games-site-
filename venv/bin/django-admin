@@ -1,4 +1,4 @@
-#!/home/tamara/Desktop/wordle-/venv/bin/python3
+#!/home/tamara/Desktop/games-site-/venv/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys
