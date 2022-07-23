@@ -24,14 +24,14 @@ class Account(models.Model):
     info = models.TextField(null=True)
     profile_pic = models.ImageField(null=True)
 
-    balls = models.OneToOneField(
-        Balls, on_delete=models.CASCADE, related_name='user_account')
-    minesweeper = models.OneToOneField(
-        MineSweeper, on_delete=models.CASCADE, related_name='user_account')
-    sudoku = models.OneToOneField(
-        Sudoku, on_delete=models.CASCADE, related_name='user_account')
-    wordle = models.OneToOneField(
-        Wordle, on_delete=models.CASCADE, related_name='user_account')
+    # balls = models.OneToOneField(
+    #     Balls, on_delete=models.CASCADE, related_name='user_account')
+    # minesweeper = models.OneToOneField(
+    #     MineSweeper, on_delete=models.CASCADE, related_name='user_account')
+    # sudoku = models.OneToOneField(
+    #     Sudoku, on_delete=models.CASCADE, related_name='user_account')
+    # wordle = models.OneToOneField(
+    #     Wordle, on_delete=models.CASCADE, related_name='user_account')
 
     class Meta:
         db_table = 'accounts'
