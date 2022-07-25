@@ -10,10 +10,10 @@ from accounts.models import Account
 
 @receiver(post_save, sender=Account)
 def create_account_balls(sender, instance, **kwargs):
-    Balls.objects.create(account=instance)
+    Balls.objects.create(account=instance).save()
 
-@receiver(post_save, sender=Account)
-def save_account_balls(sender, instance, **kwargs):
-    instance.balls.save()
+# @receiver(post_save, sender=Account)
+# def save_account_balls(sender, instance, **kwargs):
+#     instance.balls.save()
 
     
