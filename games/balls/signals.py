@@ -12,8 +12,5 @@ from accounts.models import Account
 def create_account_balls(sender, instance, **kwargs):
     Balls.objects.create(account=instance).save()
 
-# @receiver(post_save, sender=Account)
-# def save_account_balls(sender, instance, **kwargs):
-#     instance.balls.save()
 
     

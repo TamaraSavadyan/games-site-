@@ -8,6 +8,3 @@ from accounts.models import Account
 def create_account_minesweeper(sender, instance, **kwargs):
     MineSweeper.objects.create(account=instance).save()
 
-# @receiver(post_save, sender=Account)
-# def save_account_minesweeper(sender, instance, **kwargs):
-#     instance.minesweeper.save()

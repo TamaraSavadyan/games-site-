@@ -7,6 +7,3 @@ from accounts.models import Account
 def create_account_wordle(sender, instance, **kwargs):
     Wordle.objects.create(account=instance).save()
 
-# @receiver(post_save, sender=Account)
-# def save_account_wordle(sender, instance, **kwargs):
-#     instance.wordle.save()    
