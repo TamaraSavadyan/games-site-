@@ -6,9 +6,9 @@ from .models import Account
 
 @receiver(post_save, sender=User)
 def create_user_account(sender, instance, **kwargs):
-    Account.objects.create(user=instance)
+    Account.objects.create(user=instance).save()
 
 
-@receiver(post_save, sender=User)
-def save_user_account(sender, instance, **kwargs):
-    instance.account.save()
+# @receiver(post_save, sender=User)
+# def save_user_account(sender, instance, **kwargs):
+#     instance.account.save()

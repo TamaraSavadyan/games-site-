@@ -6,7 +6,7 @@ class MineSweeper(models.Model):
     time = models.TimeField(null=True)
     difficulty = models.CharField(max_length=20, null=True)
 
-    account = models.OneToOneField("accounts.Account", on_delete=models.CASCADE, related_name='minesweeper_game')
+    account = models.ForeignKey("accounts.Account", on_delete=models.CASCADE, related_name='minesweeper_game')
 
     class Meta:
         db_table = 'minesweeper'

@@ -5,9 +5,11 @@
 
 
 {% block content %}
-<form method="POST" class="form-group">
+<form method="POST" class="container">
   {% csrf_token %}
-  {{ form.as_p }}
+  <table>
+  {{ form.as_table }}
+  </table>
   <button type="submit" class="btn btn-success">Sign Up</button>
   <a href="{% url 'home' %}"><button class="btn btn-danger" type="button">Cancel</button></a>
 </form>
