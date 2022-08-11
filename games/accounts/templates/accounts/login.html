@@ -1,9 +1,38 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
+
+{% load crispy_forms_tags %}
+
+{% load bootstrap4 %}
 
 {% block content %}
-<form class="container" style="margin: 15px;" method="post">
+<form method="POST" class="container">
     {% csrf_token %}
+    <p>
+    <h2>Login</h2>
+    </p>
+    <table>
+        {% bootstrap_form form %}
+    </table>
+    {% buttons %}
+    <button type="submit" class="btn btn-primary">Sign In</button>
+    <a href="{% url 'home' %}"><button class="btn btn-danger" type="button">Cancel</button></a>
+    {% endbuttons %}
+</form>
+{% endblock %}
+
+
+
+
+
+
+
+<!-- {% extends 'base.html' }
+
+
+{% block content }
+<form class="container" style="margin: 15px;" method="post">
+    {% csrf_token }
     <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Email address</label>
         <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
@@ -15,4 +44,4 @@
     <button type="submit" class="btn btn-primary">Sign In</button>
     <a href="{% url 'home' %}"><button class="btn btn-danger" type="button">Cancel</button></a>
 </form>
-{% endblock %}
+{% endblock } -->

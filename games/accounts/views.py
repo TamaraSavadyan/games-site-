@@ -1,15 +1,16 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views import View
 from django.urls import reverse_lazy, reverse
 from .models import Account
-from .forms import RegisterForm
+from .forms import RegisterForm, LoginForm
 from django.contrib.auth.models import User
 
-
+# viewing account
 class AccountView(View):
     model = Account
     template = 'accounts/account.html'
@@ -19,24 +20,7 @@ class AccountView(View):
         account = get_object_or_404(self.model, pk=pk)
         return render(request, 'accounts/account.html', {})
 
-
-class AccountLogin(View):
-    template = 'accounts/login.html'
-    success_url = reverse_lazy('success_page')
-
-    def get(self, request):
-        return render(request, self.template, {})
-    
-    def post(self, request):
-        return redirect(self.success_url)
-
-# class AccountCreate(CreateView):
-#     model = Account
-#     template_name = 'accounts/register.html'
-#     fields = ['email', 'name', 'password']
-#     success_url = reverse_lazy('success_page')
-
-# TODO: I'm here working on it 
+# creating new account (registration)
 class AccountCreate(View):
     model = User
     template = 'accounts/register.html'
@@ -54,57 +38,57 @@ class AccountCreate(View):
             return render(request, self.template, ctx)
 
         form.save()
-        return redirect(self.success_url)   
+        ctx= {'process':'registered'}
+        return redirect(self.success_url, ctx)   
 
-'''
-@login_required
-@transaction.atomic
-def update_profile(request):
-    if request.method == 'POST':
-        user_form = UserForm(request.POST, instance=request.user)
-        profile_form = ProfileForm(request.POST, instance=request.user.profile)
-        if user_form.is_valid() and profile_form.is_valid():
-            user_form.save()
-            profile_form.save()
-            messages.success(request, _('Your profile was successfully updated!'))
-            return redirect('settings:profile')
+
+# logging into existing account
+class AccountLogin(View):
+    template = 'accounts/login.html'
+    success_url = reverse_lazy('success_page')
+
+    def get(self, request):
+        form = LoginForm()
+        ctx = {'form': form}
+        return render(request, self.template, ctx)
+    
+    def post(self, request):
+        form = LoginForm(request.POST)
+
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+
         else:
-            messages.error(request, _('Please correct the error below.'))
-    else:
-        user_form = UserForm(instance=request.user)
-        profile_form = ProfileForm(instance=request.user.profile)
-    return render(request, 'profiles/profile.html', {
-        'user_form': user_form,
-        'profile_form': profile_form
-    })
-'''
+            messages.success(request, ("There was an error logging in, try again"))
+            ctx = {'form': form}
+            return render(request, self.template, ctx)
+        
+        ctx = {'process':'logged in'}
+        return redirect(self.success_url, kwargs=ctx)
 
-    # model = Account
-    # template = 'accounts/register.html'
-    # success_url = reverse_lazy('success')
+# logging out from account
+class AccountLogout(View):
+    template = 'accounts/login.html'
+    success_url = reverse_lazy('success_page')
 
-    # def get(self, request):
-    #     form = AccountCreateForm()
-    #     ctx = {'form': form}
-    #     return render(request, self.template, ctx)
-
-    # def post(self, request):
-    #     form = AccountCreateForm(request.POST)
-    #     if not form.is_valid():
-    #         ctx = {'form': form}
-    #         return render(request, self.template, ctx)
-
-    #     form.save()
-    #     return redirect(self.success_url)
+    def get(self, request):
+        logout(request)
+        ctx = {'process':'logged out'}
+        return redirect(self.success_url, kwargs=ctx)
 
 
+# updating account
 class AccountUpdate(LoginRequiredMixin, UpdateView):
     model = Account
     template_name = 'accounts/auth.html'
     fields = '__all__'
     success_url = reverse_lazy('success_page')
 
-
+# deleting account
 class AccountDelete(LoginRequiredMixin, DeleteView):
     model = Account
     template_name = 'accounts/auth.html'

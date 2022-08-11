@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crispy_forms',
     'rest_framework',
+    'bootstrap4',
     'accounts.apps.AccountsConfig',
     'balls.apps.BallsConfig',
     'minesweeper.apps.MinesweeperConfig',

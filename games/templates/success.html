@@ -1,9 +1,33 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<p> 
-<h1> Successful registration </h1>
-    <h4>You were successfully registered to Free-Games. 
-    Please proceed to <a href="{% url 'home' %}">Home</a> page.</h4>
+<p>
+<h1> Success! </h1>
+<h4>
+    <div>
+        <p>You were successfully {{ process }} to Free-Games.</p>
+        <p>You can proceed to <a href="{% url 'home' %}">Home</a> page.</p>
+    </div>
+
+</h4>
 </p>
 {% endblock %}
+
+
+
+<!-- {% extends 'base.html' }
+
+{% block content }
+<p>
+<h1> Successful registration </h1>
+<h4>
+    <table>
+    You were successfully {{ ctx }} to Free-Games.
+    You can <a href="{% url 'accounts:account_login' %}">Sign in</a> now.
+    {% if ctx == registered }
+        Or proceed to <a href="{% url 'home' %}">Home</a> page.
+    {% endif }    
+    </table>
+</h4>
+</p>
+{% endblock } -->

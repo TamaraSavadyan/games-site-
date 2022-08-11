@@ -12,27 +12,41 @@ class RegisterForm(UserCreationForm):
         model = User
         fields = ["username", "email", "password1", "password2"]
 
-        # labels = {
-        #     'username': 'Username',
-        #     'email': 'Email',
-        #     'password1': 'Password',
-        #     'password2': 'Password confirmation',
-        # }
-
-        # widgets = {
-        #     'username': forms.TextInput(attrs={'class':'form-control'}),
-        #     'email': forms.EmailInput(attrs={'class':'form-control'}),
-        #     'password1': forms.PasswordInput(attrs={'class':'form-control'}),
-        #     'password2': forms.PasswordInput(attrs={'class':'form-control'}),
-        # }
+    #     labels = {
+    #         'username': 'Username',
+    #         'email': 'Email',
+    #         'password1': 'Password',
+    #         'password2': 'Password confirmation',
+    #     }
     
     def __init__(self, *args, **kwargs):
+
         super(RegisterForm, self).__init__(*args, **kwargs)
 
-        self.fields['username'].widget.attrs['class'] = 'form-control'
-        self.fields['email'].widget.attrs['class'] = 'form-control'
-        self.fields['password1'].widget.attrs['class'] = 'form-control'
-        self.fields['password2'].widget.attrs['class'] = 'form-control'
+        self.fields['username'].widget.attrs['placeholder'] = ''
+        self.fields['email'].widget.attrs['placeholder'] = ''
+        self.fields['password1'].widget.attrs['placeholder'] = '' 
+        self.fields['password2'].widget.attrs['placeholder'] = ''
+
+
+class LoginForm(ModelForm):
+
+    class Meta:
+        model = User
+        fields = ['username', 'password']
+
+        widgets = {
+            'password': forms.PasswordInput()
+        }
+
+    def __init__(self, *args, **kwargs):
+
+        super(LoginForm, self).__init__(*args, **kwargs)
+
+        self.fields['username'].widget.attrs['placeholder'] = ''
+        self.fields['password'].widget.attrs['placeholder'] = ''
+
+        self.fields['username'].help_text = None
 
 
 

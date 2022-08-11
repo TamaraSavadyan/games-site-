@@ -23,19 +23,36 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
           </li>
-          {% if is_authenticated %}
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="{% url 'accounts:account_current' %}">Account</a>
-            </li>
-          {% endif %}  
-        </ul>
+          {% if user.is_authenticated %}
+          <form class="d-grid gap-2 d-md-flex justify-content-md-end">
+            
+            <a href="{% url 'accounts:account_logout' %}"><button class="btn btn-link" type="button" style="margin-left: 5px;">Account Sign Out</button></a>
+          </form>
+            <!-- <li class="nav-item">
+              <a href="{% url 'accounts:account_login' %}"><button class="btn btn-outline-primary me-md-2" type="button" style="margin-left: 20px;">Log out</button></a>
+              <a class="nav-link active" aria-current="page" href="{ url 'accounts:account_current' %}">Account</a>
+            </li> -->
+          {% else %}  
+        
         <form class="d-grid gap-2 d-md-flex justify-content-md-end">
           <a href="{% url 'accounts:account_login' %}"><button class="btn btn-outline-primary me-md-2" type="button" style="margin-left: 20px;">Sign In</button></a>
           <a href="{% url 'accounts:account_create' %}"><button class="btn btn-outline-success" type="button" style="margin-left: 5px;">Sign Up</button></a>
         </form>
+        {% endif %}
+      </ul>
       </div>
     </div>
   </nav>
+  <div class="container">
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>{{ message }}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    {% endif %}
+  </div>
   {% block content %}
   {% endblock %}
 </body>
