@@ -2,31 +2,77 @@
 
 {% block content %}
 <style>
-img {
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 5px;
-    width: 150px;
-  }
+    img {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 5px;
+        width: 300px;
+        margin: 10px;
+    }
+
+    img:hover {
+        box-shadow: 0 0 2px 1px rgba(42, 180, 226, 0.702);
+    }
+
+    label {
+        margin-left: 15px;
+        color: rgb(37, 135, 232); 
+        font-weight: 700;
+    }
+
+    /* Three image containers (use 25% for four, and 50% for two, etc) */
+    .column {
+        float: left;
+        width: 25%;
+        padding: 5px;
+        margin: 25px;
+    }
+
+    /* Clear floats after image containers */
+    .row {
+        content: "";
+        clear: both;
+        display: table;
+        margin: 20px;
+    }
+
+    @media screen and (max-width: 500px) {
+        .column {
+            width: 100%;
+        }
+    }
 </style>
 <p>
-<h1>Welcome to Free-games !</h1>
-<p><h4> Choose your game </h4></p>
+<h1 style="margin: 15px;">Welcome to Free-games !</h1>
 </p>
-<div>
-    {% load static %}
-    <a href="{% url 'wordle:wordle' %}">
-        <img src="{% static 'images/wordle.png' %}" class="rounded float-left" alt="Wordle_Game">
-    </a>
+<p>
+<h4 style="margin: 15px;"> Choose a game to play </h4>
+</p>
 
-    <a href="{% url 'minesweeper:minesweeper' %}">
-        <img src="{% static 'images/minesweeper.png' %}" class="rounded float-left" alt="Minesweeper_Game"
-        style="margin: 15px;">
-    </a>
 
-    <a href="{% url 'sudoku:sudoku' %}">
-        <img src="{% static 'images/sudoku.png' %}" class="rounded float-left" alt="Sudoku_Game"
-        style="margin: 15px;">
-    </a>
+{% load static %}
+<div class="row">
+
+    <div class="column">
+        <a href="{% url 'wordle:wordle' %}">
+            <label>Wordle</label>
+            <img src="{% static 'images/wordle.png' %}" class="rounded float-left" alt="Wordle_Game">
+        </a>
+    </div>
+
+    <div class="column">
+        <a href="{% url 'minesweeper:minesweeper' %}">
+            <label>Minesweeper</label>
+            <img src="{% static 'images/minesweeper.png' %}" class="rounded float-left" alt="Minesweeper_Game">
+        </a>
+    </div>
+
+    <div class="column">
+        <a href="{% url 'sudoku:sudoku' %}">
+            <label>Sudoku</label>
+            <img src="{% static 'images/sudoku.png' %}" class="rounded float-left" alt="Sudoku_Game">
+        </a>
+    </div>
+
 </div>
 {% endblock %}

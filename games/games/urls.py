@@ -22,11 +22,12 @@ from games.views import (
 )
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic.base import RedirectView
 
 
 urlpatterns = [
     path('', HomeView.as_view(), name='base'),
-    path('home/', HomeView.as_view(), name='home'),
+    path('', HomeView.as_view(), name='home'),
     path('success/', SuccessView.as_view(), name='success_page'),
     path('404-page/', Error404View.as_view(), name='404_page'),
 
@@ -35,5 +36,7 @@ urlpatterns = [
     path('game-minesweeper/', include('minesweeper.urls'), name='game_minesweeper'),
     path('game-sudoku/', include('sudoku.urls'), name='game_sudoku'),
 
+     path('favicon.ico', RedirectView.as_view(url='/static/favicon.ico', permanent=True)),
     path('admin/', admin.site.urls, name='admin'),
+
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
