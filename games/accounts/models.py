@@ -5,13 +5,10 @@ sys.path.append('/home/tamara/Desktop/games-site-/games/minesweeper')
 sys.path.append('/home/tamara/Desktop/games-site-/games/sudoku')
 sys.path.append('/home/tamara/Desktop/games-site-/games/wordle')
 '''
-from balls.models import Balls
-from minesweeper.models import MineSweeper
-from sudoku.models import Sudoku
-from wordle.models import Wordle
 
 from django.db import models
 from django.contrib.auth.models import User
+from PIL import Image
 
 
 # Create your models here
@@ -21,17 +18,21 @@ class Account(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    profile_pic = models.ImageField(default='/home/tamara/Desktop/games-site-/games/static/default.jpg', upload_to='profile_images')
     info = models.TextField(null=True)
-    profile_pic = models.ImageField(null=True)
+    
+    def __str__(self):
+        return self.user.username
 
-    # balls = models.OneToOneField(
-    #     Balls, on_delete=models.CASCADE, related_name='user_account')
-    # minesweeper = models.OneToOneField(
-    #     MineSweeper, on_delete=models.CASCADE, related_name='user_account')
-    # sudoku = models.OneToOneField(
-    #     Sudoku, on_delete=models.CASCADE, related_name='user_account')
-    # wordle = models.OneToOneField(
-    #     Wordle, on_delete=models.CASCADE, related_name='user_account')
+    def save(self, *args, **kwargs):
+        super().save()
+
+        img = Image.open(self.profile_pic.path)
+
+        if img.height > 100 or img.width > 100:
+            new_img = (100, 100)
+            img.thumbnail(new_img)
+            img.save(self.profile_pic.path)
 
     class Meta:
         db_table = 'accounts'

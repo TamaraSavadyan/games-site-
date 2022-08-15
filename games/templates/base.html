@@ -27,7 +27,8 @@
           {% if user.is_authenticated %}
           <form class="d-grid gap-2 d-md-flex justify-content-md-end">
             
-            <a href="{% url 'accounts:account_logout' %}"><button class="btn btn-link" type="button" style="margin-left: 5px;">Account Sign Out</button></a>
+            <a href="{% url 'accounts:account_current' %}"><button class="btn btn-link" type="button" style="margin-left: 5px;">{{ user.username }}'s account</button></a>
+            
           </form>
             <!-- <li class="nav-item">
               <a href="{% url 'accounts:account_login' %}"><button class="btn btn-outline-primary me-md-2" type="button" style="margin-left: 20px;">Log out</button></a>
@@ -36,8 +37,8 @@
           {% else %}  
         
         <form class="d-grid gap-2 d-md-flex justify-content-md-end">
-          <a href="{% url 'accounts:account_login' %}"><button class="btn btn-outline-primary me-md-2" type="button" style="margin-left: 20px;">Sign In</button></a>
-          <a href="{% url 'accounts:account_create' %}"><button class="btn btn-outline-success" type="button" style="margin-left: 5px;">Sign Up</button></a>
+          <a href="{% url 'accounts:account_login' %}"><button class="btn btn-outline-primary me-md-2" type="button" style="margin-left: 20px;">Log In</button></a>
+          <a href="{% url 'accounts:account_create' %}"><button class="btn btn-outline-success" type="button" style="margin-left: 5px;">Create account</button></a>
         </form>
         {% endif %}
       </ul>

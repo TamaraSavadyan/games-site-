@@ -1,8 +1,23 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
+
+{% load crispy_forms_tags %}
+
+{% load bootstrap4 %}
 
 {% block content %}
-<p>
-  <h2> Account page!!! </h2>
-</p>
+<form method="POST" class="container">
+    {% csrf_token %}
+    <p>
+    <h2>Account of <label style="color:rgb(27, 96, 216);">{{ user.username }}</label></h2>
+    </p>
+   
+    <table>
+        {% bootstrap_form form %}
+    </table>
+    {% buttons %}
+    <a href="{% url 'home' %}"><button class="btn btn-warning" type="button">Home</button></a>
+    <a href="{% url 'accounts:account_logout' %}"><button class="btn btn-info" type="button">Log Out</button></a>
+    {% endbuttons %}
+</form>
 {% endblock %}

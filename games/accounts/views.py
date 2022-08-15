@@ -7,18 +7,22 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views import View
 from django.urls import reverse_lazy, reverse
 from .models import Account
-from .forms import RegisterForm, LoginForm
+from .forms import AccountForm, RegisterForm, LoginForm
 from django.contrib.auth.models import User
 
+
 # viewing account
-class AccountView(View):
+class AccountView(LoginRequiredMixin, View):
     model = Account
     template = 'accounts/account.html'
     success_url = reverse_lazy('success')
 
-    def get(self, request, pk):
-        account = get_object_or_404(self.model, pk=pk)
-        return render(request, 'accounts/account.html', {})
+    def get(self, request):
+        form = AccountForm()
+        ctx = {'form': form}
+        # account = get_object_or_404(self.model, pk=pk)
+        return render(request, 'accounts/account.html', ctx)
+
 
 # creating new account (registration)
 class AccountCreate(View):
@@ -38,8 +42,9 @@ class AccountCreate(View):
             return render(request, self.template, ctx)
 
         form.save()
-        ctx= {'process':'registered'}
-        return redirect(self.success_url, ctx)   
+        # ctx= {'process':'registered'}
+        request.session['process'] = 'registered'
+        return redirect(self.success_url)
 
 
 # logging into existing account
@@ -51,7 +56,7 @@ class AccountLogin(View):
         form = LoginForm()
         ctx = {'form': form}
         return render(request, self.template, ctx)
-    
+
     def post(self, request):
         form = LoginForm(request.POST)
 
@@ -63,12 +68,15 @@ class AccountLogin(View):
             login(request, user)
 
         else:
-            messages.success(request, ("There was an error logging in, try again"))
+            messages.success(
+                request, ("There was an error logging in, try again"))
             ctx = {'form': form}
             return render(request, self.template, ctx)
-        
-        ctx = {'process':'logged in'}
-        return redirect(self.success_url, kwargs=ctx)
+
+        # ctx = {'process':'logged in'}
+        request.session['process'] = 'logged in'
+        return redirect(self.success_url)
+
 
 # logging out from account
 class AccountLogout(View):
@@ -77,8 +85,10 @@ class AccountLogout(View):
 
     def get(self, request):
         logout(request)
-        ctx = {'process':'logged out'}
-        return redirect(self.success_url, kwargs=ctx)
+
+        # ctx = {'process':'logged out'}
+        request.session['process'] = 'logged out'
+        return redirect(self.success_url)
 
 
 # updating account
@@ -87,6 +97,7 @@ class AccountUpdate(LoginRequiredMixin, UpdateView):
     template_name = 'accounts/auth.html'
     fields = '__all__'
     success_url = reverse_lazy('success_page')
+
 
 # deleting account
 class AccountDelete(LoginRequiredMixin, DeleteView):

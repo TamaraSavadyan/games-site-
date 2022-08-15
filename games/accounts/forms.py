@@ -50,41 +50,23 @@ class LoginForm(ModelForm):
 
 
 
-
-
-
-
-
-
-
-
-#     <!-- {% block content }
-# <form class="container" style="margin: 15px;" method="post">
-#   {% csrf_token }
-#   <div class="mb-3">
-#     <label for="exampleInputEmail1" class="form-label">Email address</label>
-#     <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{ form.email }}">
-#     <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-#   </div>
-#   <div class="mb-3">
-#     <label for="exampleInputPassword1" class="form-label">Username</label>
-#     <input type="user" class="form-control" id="exampleInputPassword1" value="{{ form.username }}">
-#   </div>
-#   <div class="mb-3">
-#     <label for="exampleInputPassword1" class="form-label">Password</label>
-#     <input type="password" class="form-control" id="exampleInputPassword1" value="{{ form.password }}">
-#   </div>
-#   <div class="mb-3">
-#     <label for="exampleInputPassword1" class="form-label">Repeat Password</label>
-#     <input type="password" class="form-control" id="exampleInputPassword1">
-#   </div>
-#   <button type="submit" class="btn btn-success">Sign Up</button>
-#   <a href="{% url 'home' %}"><button class="btn btn-danger" type="button">Cancel</button></a>
-# </form>
-# {% endblock } -->
-
-
 class AccountForm(ModelForm):
+
     class Meta:
         model = Account
-        fields = ['info', 'profile_pic']
+        fields = ['profile_pic', 'user', 'info']
+        # 'User.username', 'User.email',
+
+    # def __init__(self, *args, **kwargs):
+
+    #     super(AccountForm, self).__init__(*args, **kwargs)
+
+        # self.fields['username'].widget.attrs['placeholder'] = ''
+        # self.fields['password'].widget.attrs['placeholder'] = ''
+
+        # self.fields['username'].help_text = None
+
+
+
+
+

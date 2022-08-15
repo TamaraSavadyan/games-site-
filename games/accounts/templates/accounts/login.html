@@ -9,13 +9,13 @@
 <form method="POST" class="container">
     {% csrf_token %}
     <p>
-    <h2>Login</h2>
+    <h2>Log In</h2>
     </p>
     <table>
         {% bootstrap_form form %}
     </table>
     {% buttons %}
-    <button type="submit" class="btn btn-primary">Sign In</button>
+    <button type="submit" class="btn btn-primary">Log In</button>
     <a href="{% url 'home' %}"><button class="btn btn-danger" type="button">Cancel</button></a>
     {% endbuttons %}
 </form>

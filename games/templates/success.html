@@ -5,7 +5,7 @@
 <h1> Success! </h1>
 <h4>
     <div>
-        <p>You were successfully {{ process }} to Free-Games.</p>
+        <p>You were successfully {{ request.session.process }} Free-Games.</p>
         <p>You can proceed to <a href="{% url 'home' %}">Home</a> page.</p>
     </div>
 
