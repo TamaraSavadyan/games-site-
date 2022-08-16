@@ -18,7 +18,7 @@ class AccountView(LoginRequiredMixin, View):
     success_url = reverse_lazy('success')
 
     def get(self, request):
-        form = AccountForm()
+        form = AccountForm(instance=request.user.account)
         ctx = {'form': form}
         # account = get_object_or_404(self.model, pk=pk)
         return render(request, 'accounts/account.html', ctx)

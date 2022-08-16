@@ -6,3 +6,4 @@ print("Files in %r: %s" % (cwd, files))
 
 import sys
 sys.path.append('/home/tamara/Desktop/games-site-/root/')
+

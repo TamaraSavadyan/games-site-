@@ -11,6 +11,7 @@ from django.contrib.auth.models import User
 from PIL import Image
 
 
+
 # Create your models here
 class Account(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -18,7 +19,7 @@ class Account(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    profile_pic = models.ImageField(default='/home/tamara/Desktop/games-site-/games/static/default.jpg', upload_to='profile_images')
+    profile_pic = models.ImageField(default='default.png', upload_to='account_images')
     info = models.TextField(null=True)
     
     def __str__(self):
@@ -28,7 +29,7 @@ class Account(models.Model):
         super().save()
 
         img = Image.open(self.profile_pic.path)
-
+        
         if img.height > 100 or img.width > 100:
             new_img = (100, 100)
             img.thumbnail(new_img)

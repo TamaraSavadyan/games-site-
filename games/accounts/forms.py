@@ -51,22 +51,34 @@ class LoginForm(ModelForm):
 
 
 class AccountForm(ModelForm):
+    profile_pic = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}))
+    info = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 8}))
 
     class Meta:
         model = Account
-        fields = ['profile_pic', 'user', 'info']
-        # 'User.username', 'User.email',
-
-    # def __init__(self, *args, **kwargs):
-
-    #     super(AccountForm, self).__init__(*args, **kwargs)
-
-        # self.fields['username'].widget.attrs['placeholder'] = ''
-        # self.fields['password'].widget.attrs['placeholder'] = ''
-
-        # self.fields['username'].help_text = None
+        fields = ['profile_pic', 'info']
+    
 
 
 
 
 
+# class UpdateUserForm(forms.ModelForm):
+#     username = forms.CharField(max_length=100,
+#                                required=True,
+#                                widget=forms.TextInput(attrs={'class': 'form-control'}))
+#     email = forms.EmailField(required=True,
+#                              widget=forms.TextInput(attrs={'class': 'form-control'}))
+
+#     class Meta:
+#         model = User
+#         fields = ['username', 'email']
+
+
+# class UpdateProfileForm(forms.ModelForm):
+#     avatar = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}))
+#     bio = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5}))
+
+#     class Meta:
+#         model = Profile
+#         fields = ['avatar', 'bio']
