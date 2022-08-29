@@ -20,6 +20,8 @@ class AccountView(LoginRequiredMixin, View):
         form = AccountForm(instance=request.user)
         # username = request.user.username
         # ctx = {'username': username, 'form': form}
+
+        # ctx = {'form': form}
         ctx = {'form': form}
         return render(request, self.template, ctx)
 

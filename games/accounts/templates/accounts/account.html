@@ -12,7 +12,10 @@
     <h2><label style="color:rgb(27, 96, 216);">{{ user.username }}</label></h2>
     </p>
     <table>
-        {% bootstrap_form form %}
+        <p>{{ form.profile_pic }}</p>
+        <p style="color: rgb(0, 0, 0);">Bio</p>
+        <p>{{ form.info }}</p>
+        <!-- {% bootstrap_form form } -->
     </table>
     {% buttons %}
     <a href="{% url 'home' %}"><button class="btn btn-warning" type="button">Home</button></a>

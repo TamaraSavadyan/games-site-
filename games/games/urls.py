@@ -31,7 +31,7 @@ urlpatterns = [
     path('', HomeView.as_view(), name='home'),
     path('success/', SuccessView.as_view(), name='success_page'),
     path('404-page/', Error404View.as_view(), name='404_page'),
-    #!! I got troubles with accounts url (pages doesn't show)
+
     path('account/', include('accounts.urls'), name='accounts'),
     path('game-wordle/', include('wordle.urls'), name='game_wordle'),
     path('game-minesweeper/', include('minesweeper.urls'), name='game_minesweeper'),
