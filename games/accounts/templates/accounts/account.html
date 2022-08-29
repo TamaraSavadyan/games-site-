@@ -9,9 +9,8 @@
 <form method="POST" class="container">
     {% csrf_token %}
     <p>
-    <h2>Account of <label style="color:rgb(27, 96, 216);">{{ user.username }}</label></h2>
+    <h2><label style="color:rgb(27, 96, 216);">{{ user.username }}</label></h2>
     </p>
-   
     <table>
         {% bootstrap_form form %}
     </table>
@@ -21,3 +20,4 @@
     {% endbuttons %}
 </form>
 {% endblock %}
+

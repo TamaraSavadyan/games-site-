@@ -6,7 +6,8 @@ from .models import Account
 
 @receiver(post_save, sender=User)
 def create_user_account(sender, instance, **kwargs):
-    Account.objects.create(user=instance).save()
+    if kwargs['created']:
+        Account.objects.create(user=instance).save()
 
 
 # @receiver(post_save, sender=User)

@@ -15,13 +15,13 @@ from django.contrib.auth.models import User
 class AccountView(LoginRequiredMixin, View):
     model = Account
     template = 'accounts/account.html'
-    success_url = reverse_lazy('success')
 
-    def get(self, request):
-        form = AccountForm(instance=request.user.account)
+    def get(self, request, username):
+        form = AccountForm(instance=request.user)
+        # username = request.user.username
+        # ctx = {'username': username, 'form': form}
         ctx = {'form': form}
-        # account = get_object_or_404(self.model, pk=pk)
-        return render(request, 'accounts/account.html', ctx)
+        return render(request, self.template, ctx)
 
 
 # creating new account (registration)
@@ -43,7 +43,7 @@ class AccountCreate(View):
 
         form.save()
         # ctx= {'process':'registered'}
-        request.session['process'] = 'registered'
+        request.session['process'] = 'registered to'
         return redirect(self.success_url)
 
 
@@ -68,8 +68,7 @@ class AccountLogin(View):
             login(request, user)
 
         else:
-            messages.success(
-                request, ("There was an error logging in, try again"))
+            messages.success(request, ("There was an error logging in, try again"))
             ctx = {'form': form}
             return render(request, self.template, ctx)
 
@@ -80,14 +79,13 @@ class AccountLogin(View):
 
 # logging out from account
 class AccountLogout(View):
-    template = 'accounts/login.html'
     success_url = reverse_lazy('success_page')
 
     def get(self, request):
         logout(request)
 
         # ctx = {'process':'logged out'}
-        request.session['process'] = 'logged out'
+        request.session['process'] = 'logged out from'
         return redirect(self.success_url)
 
 

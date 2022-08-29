@@ -6,5 +6,6 @@ from accounts.models import Account
 
 @receiver(post_save, sender=Account)
 def create_account_minesweeper(sender, instance, **kwargs):
-    MineSweeper.objects.create(account=instance).save()
+    if kwargs['created']:
+        MineSweeper.objects.create(account=instance).save()
 
