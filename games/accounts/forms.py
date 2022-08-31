@@ -51,7 +51,7 @@ class LoginForm(ModelForm):
 
 
 class AccountForm(ModelForm):
-    profile_pic = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}))
+    profile_pic = forms.ImageField()
     info = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 8}))
 
     class Meta:
