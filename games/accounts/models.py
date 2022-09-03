@@ -14,12 +14,12 @@ from PIL import Image
 
 # Create your models here
 class Account(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    profile_pic = models.ImageField(default='default.png', upload_to='account_images')
+    profile_pic = models.ImageField(default='default.png', upload_to='account_images/')
     info = models.TextField(null=True)
     
     def __str__(self):
@@ -34,6 +34,11 @@ class Account(models.Model):
             new_img = (100, 100)
             img.thumbnail(new_img)
             img.save(self.profile_pic.path)
+
+    @property
+    def profile_pic_url(self):
+        if self.profile_pic and hasattr(self.profile_pic, 'url'):
+            return self.profile_pic.url        
 
     class Meta:
         db_table = 'accounts'

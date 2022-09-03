@@ -4,6 +4,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import Account
 
+import PIL
+
 
 class RegisterForm(UserCreationForm):
     email = forms.EmailField()
@@ -51,7 +53,7 @@ class LoginForm(ModelForm):
 
 
 class AccountForm(ModelForm):
-    profile_pic = forms.ImageField()
+    profile_pic = forms.ImageField() # widget=forms.FileInput(attrs={'class': 'form-control-file'})
     info = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 8}))
 
     class Meta:

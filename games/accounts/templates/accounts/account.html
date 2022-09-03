@@ -6,17 +6,47 @@
 {% load bootstrap4 %}
 
 {% block content %}
-<form method="POST" class="container">
+<style>
+    img:hover {
+        box-shadow: 0 0 2px 1px rgba(42, 180, 226, 0.702);
+    }
+
+    .column {
+        float: left;
+        width: 25%;
+        padding: 5px;
+        margin: 25px;
+    }
+
+    .row {
+        content: "";
+        clear: both;
+        display: table;
+        margin: 20px;
+    }
+
+    @media screen and (max-width: 500px) {
+        .column {
+            width: 100%;
+        }
+    }
+</style>
+<form method="POST" class="container" enctype="multipart/form-data">
     {% csrf_token %}
-    <p>
-    <h2><label style="color:rgb(27, 96, 216);">{{ user.username }}</label></h2>
-    </p>
-    <table>
-        <p>{{ form.profile_pic }}</p>
+    <div class="form-container">
+
+        <p>
+        <h2><label style="color:rgb(27, 96, 216);">{{ user.username }}</label></h2>
+        </p>
+
+        <p>
+        <img src="{{ user.account.profile_pic.url }}" alt="{{user.username}}" class="img-thumbnail">
+        </p>
+
         <p style="color: rgb(0, 0, 0);">Bio</p>
         <p>{{ form.info }}</p>
-        <!-- {% bootstrap_form form } -->
-    </table>
+
+    </div>
     {% buttons %}
     <a href="{% url 'home' %}"><button class="btn btn-warning" type="button">Home</button></a>
     <a href="{% url 'accounts:account_logout' %}"><button class="btn btn-info" type="button">Log Out</button></a>
@@ -24,6 +54,6 @@
 </form>
 {% endblock %}
 
- <!-- <p>{{ form.profile_pic </p>
-        <p style="color: rgb(0, 0, 0);">Bio</p>
-        <p>{{ form.info </p> -->
+
+
+<!-- {% bootstrap_form form  -->
