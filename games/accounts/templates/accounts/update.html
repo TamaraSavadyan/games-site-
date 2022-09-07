@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+
+{% load crispy_forms_tags %}
+
+{% load bootstrap4 %}
+
+{% block content %}
+<p>
+<form method="POST" class="container" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <table>
+        {% bootstrap_form user_form %}
+    </table>
+
+</form>
+<form method="POST" class="container" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <table>
+        {% bootstrap_form account_form %}
+    </table>
+
+    {% buttons %}
+    <a href="{% url 'accounts:account_current' user.username %}"><button class="btn btn-success"
+            type="button">Confirm</button></a>
+    <a href="{% url 'accounts:account_current' user.username %}"><button class="btn btn-danger"
+            type="button">Cancel</button></a>
+    <a href="{% url 'accounts:account_delete' user.username %}"><button class="btn btn-outline-danger" type="button"
+            style="margin-left: 35rem;">Delete
+            account</button></a>
+    {% endbuttons %}
+</form>
+
+
+</p>
+{% endblock %}

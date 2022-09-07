@@ -7,7 +7,7 @@ class Sudoku(models.Model):
     time = models.TimeField(null=True)
     dificulty = models.CharField(max_length=20, null=True)
 
-    account = models.ForeignKey("accounts.Account", on_delete=models.CASCADE, related_name='sudoku_game')
+    account = models.OneToOneField("accounts.Account", on_delete=models.CASCADE, related_name='sudoku_game')
 
     class Meta:
         db_table = 'sudoku'

@@ -15,7 +15,7 @@ class Wordle(models.Model):
     fifth_try = models.IntegerField(null=True)
     sixth_try = models.IntegerField(null=True)
 
-    account = models.ForeignKey("accounts.Account", on_delete=models.CASCADE, related_name='wordle_game')
+    account = models.OneToOneField("accounts.Account", on_delete=models.CASCADE, related_name='wordle_game')
 
     class Meta:
         db_table = 'wordle'

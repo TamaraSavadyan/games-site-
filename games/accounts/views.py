@@ -3,11 +3,16 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views import View
 from django.urls import reverse_lazy, reverse
 from .models import Account
-from .forms import AccountForm, RegisterForm, LoginForm
+from .forms import (
+        AccountForm, 
+        RegisterForm, 
+        LoginForm, 
+        UpdateUserForm, 
+        UpdateAccountForm
+    )
 from django.contrib.auth.models import User
 
 
@@ -18,10 +23,6 @@ class AccountView(LoginRequiredMixin, View):
 
     def get(self, request, username):
         form = AccountForm(instance=request.user)
-        # username = request.user.username
-        # ctx = {'username': username, 'form': form}
-
-        # ctx = {'form': form}
         ctx = {'form': form}
         return render(request, self.template, ctx)
 
@@ -92,16 +93,68 @@ class AccountLogout(View):
 
 
 # updating account
-class AccountUpdate(LoginRequiredMixin, UpdateView):
-    model = Account
-    template_name = 'accounts/auth.html'
-    fields = '__all__'
+class AccountUpdate(LoginRequiredMixin, View):
+    template = 'accounts/update.html'
+    account_template = 'accounts/account.html'
     success_url = reverse_lazy('success_page')
+
+    def get(self, request, username):
+        user_form = UpdateUserForm()
+        account_form = UpdateAccountForm()    
+        
+        ctx = {
+                'user_form': user_form,
+                'account_form': account_form
+            }
+        return render(request, self.template, ctx)
+
+    def post(self, request):
+        user_form = UpdateUserForm(request.POST, instance=request.user)
+        account_form = UpdateAccountForm(request.POST, request.FILES, instance=request.user.account)    
+
+        if user_form.is_valid() and account_form.is_valid():
+            user_form.save()
+            account_form.save()
+            messages.success(request, 'Your profile is updated successfully')
+            return redirect(self.account_template)
+        else:
+            user_form = UpdateUserForm(instance=request.user)
+            account_form = UpdateAccountForm(instance=request.user.account)
+
+            return render(request, self.template, {'user_form': user_form, 'account_form': account_form})
+
+# def profile(request):
+#     if request.method == 'POST':
+#         user_form = UpdateUserForm(request.POST, instance=request.user)
+#         profile_form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
+
+#         if user_form.is_valid() and profile_form.is_valid():
+#             user_form.save()
+#             profile_form.save()
+#             messages.success(request, 'Your profile is updated successfully')
+#             return redirect(to='users-profile')
+#     else:
+#         user_form = UpdateUserForm(instance=request.user)
+#         profile_form = UpdateProfileForm(instance=request.user.profile)
+
+#     return render(request, 'users/profile.html', {'user_form': user_form, 'profile_form': profile_form})
+
 
 
 # deleting account
-class AccountDelete(LoginRequiredMixin, DeleteView):
-    model = Account
-    template_name = 'accounts/auth.html'
-    fields = '__all__'
+class AccountDelete(LoginRequiredMixin, View):
+    template = 'accounts/delete.html'
     success_url = reverse_lazy('success_page')
+
+    def get(self, request, username):
+        ctx = {}
+        return render(request, self.template, ctx)
+
+    def post(self, request, username):
+        u = User.objects.get(username=username)
+        u.delete()
+        
+        request.session['process'] = 'deleted from'
+        return redirect(self.success_url)    
+
+

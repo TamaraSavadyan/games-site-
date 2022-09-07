@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+
+{% load crispy_forms_tags %}
+
+{% load bootstrap4 %}
+
+{% block content %}
+<form method="POST" class="container">
+    {% csrf_token %}
+    
+    <p><h3>Are you sure you want to delete your account?</h3></p>
+
+    {% buttons %}
+    <a href="{% url 'success_page' %}"><button class="btn btn-success" type="submit">Yes</button></a>
+    <a href="{% url 'accounts:account_current' user.username %}"><button class="btn btn-info" type="button">No</button></a>
+    {% endbuttons %}
+</form>
+{% endblock %}
