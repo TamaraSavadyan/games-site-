@@ -1,22 +1,20 @@
 {% extends "base.html" %}
 
 
-{% load crispy_forms_tags %}
-
 {% load bootstrap4 %}
 
 {% block content %}
 <p>
 <form method="POST" class="container" enctype="multipart/form-data">
     {% csrf_token %}
-
+    {% buttons %}
+    <p>
+    <button class="btn btn-primary btn-sm" type="reset" style="float: right;">Reset fields</button>
+    </p>
+    {% endbuttons %}
     <table>
         {% bootstrap_form user_form %}
     </table>
-
-</form>
-<form method="POST" class="container" enctype="multipart/form-data">
-    {% csrf_token %}
 
     <table>
         {% bootstrap_form account_form %}
@@ -24,7 +22,7 @@
 
     {% buttons %}
     <a href="{% url 'accounts:account_current' user.username %}"><button class="btn btn-success"
-            type="button">Confirm</button></a>
+            type="submit">Confirm</button></a>
     <a href="{% url 'accounts:account_current' user.username %}"><button class="btn btn-danger"
             type="button">Cancel</button></a>
     <a href="{% url 'accounts:account_delete' user.username %}"><button class="btn btn-outline-danger" type="button"
@@ -32,7 +30,5 @@
             account</button></a>
     {% endbuttons %}
 </form>
-
-
 </p>
 {% endblock %}

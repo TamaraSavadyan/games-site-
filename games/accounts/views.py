@@ -108,37 +108,22 @@ class AccountUpdate(LoginRequiredMixin, View):
             }
         return render(request, self.template, ctx)
 
-    def post(self, request):
+    def post(self, request, username):
+        # print(request.user, request.user.account)
         user_form = UpdateUserForm(request.POST, instance=request.user)
         account_form = UpdateAccountForm(request.POST, request.FILES, instance=request.user.account)    
 
-        if user_form.is_valid() and account_form.is_valid():
-            user_form.save()
-            account_form.save()
-            messages.success(request, 'Your profile is updated successfully')
-            return redirect(self.account_template)
-        else:
+        if not user_form.is_valid() and not account_form.is_valid():
             user_form = UpdateUserForm(instance=request.user)
             account_form = UpdateAccountForm(instance=request.user.account)
 
             return render(request, self.template, {'user_form': user_form, 'account_form': account_form})
+        
+        user_form.save()
+        account_form.save()
 
-# def profile(request):
-#     if request.method == 'POST':
-#         user_form = UpdateUserForm(request.POST, instance=request.user)
-#         profile_form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
-
-#         if user_form.is_valid() and profile_form.is_valid():
-#             user_form.save()
-#             profile_form.save()
-#             messages.success(request, 'Your profile is updated successfully')
-#             return redirect(to='users-profile')
-#     else:
-#         user_form = UpdateUserForm(instance=request.user)
-#         profile_form = UpdateProfileForm(instance=request.user.profile)
-
-#     return render(request, 'users/profile.html', {'user_form': user_form, 'profile_form': profile_form})
-
+        request.session['process'] = 'updated at'
+        return redirect(self.success_url)
 
 
 # deleting account

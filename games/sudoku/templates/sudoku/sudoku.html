@@ -1,25 +1,21 @@
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width initial-scale=1.0 user-scalable=no">
-        <title>Sudoku</title>
-        {% load static %}
-        <link rel="stylesheet" href="sudoku.css">
-        <script src="sudoku.js"></script>
-    </head>
+{% extends 'base.html' %}
 
-    <body>
-        <h1>Sudoku</h1>
-        <hr>
-        <h2 id="errors">0</h2>
+{% block content %}
 
-        <!-- 9x9 board -->
-        <div id="board"></div>
-        <br>
-        <div id="digits">
-        </div>
-
-    </body>
+<title>Sudoku</title>
+{% load static %}
+<link rel="stylesheet" href="{% static 'sudoku/sudoku.css' %}">
+<script src="{% static 'sudoku/sudoku.js' %}"></script>
 
 
-</html>
+<h1>Sudoku</h1>
+<hr>
+<h2 id="errors">0</h2>
+
+<!-- 9x9 board -->
+<div id="board"></div>
+<br>
+<div id="digits">
+</div>
+
+{% endblock %}

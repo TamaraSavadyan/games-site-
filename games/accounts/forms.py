@@ -67,11 +67,24 @@ class UpdateUserForm(forms.ModelForm):
         model = User
         fields = ['username', 'email']
 
+    def __init__(self, *args, **kwargs):
+
+        super(UpdateUserForm, self).__init__(*args, **kwargs)
+
+        self.fields['username'].widget.attrs['placeholder'] = ''
+        self.fields['email'].widget.attrs['placeholder'] = ''    
+
 
 class UpdateAccountForm(forms.ModelForm):
-    profile_pic = forms.ImageField()
-    info = forms.CharField()
+    profile_pic = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}))
+    info = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5}))
 
     class Meta:
         model = Account
         fields = ['profile_pic', 'info']
+
+    def __init__(self, *args, **kwargs):
+
+        super(UpdateAccountForm, self).__init__(*args, **kwargs)
+
+        self.fields['info'].widget.attrs['placeholder'] = ''
