@@ -1,15 +1,14 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
+from django.urls import reverse_lazy, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
 # Create your views here.
 
 
 class WordleView(LoginRequiredMixin, View):
-    # Verify that the current user is authenticated.
-    # def dispatch(self, request, *args, **kwargs):
-    #     if not request.user.is_authenticated:
-    #         return self.handle_no_permission()
+    login_url = reverse_lazy('accounts:account_login')
+    template = 'wordle/wordle.html'
 
     def get(self, request):
-        return render(request, 'wordle/wordle.html', {})
+        return render(request, self.template, {})
         # return render(request, 'wordle/test_wordle.html', {})
