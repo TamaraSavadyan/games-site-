@@ -8,6 +8,7 @@ from django.urls import reverse_lazy
 class SudokuView(LoginRequiredMixin, View):
     login_url = reverse_lazy('accounts:account_login')
     template = 'sudoku/sudoku.html'
+    
 
     def get(self, request):
         return render(request, self.template, {})
