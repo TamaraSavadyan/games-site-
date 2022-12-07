@@ -20,7 +20,7 @@ class Account(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     profile_pic = models.ImageField(default='default.png', upload_to='account_images')
-    info = models.CharField(max_length=5000, null=True)
+    info = models.TextField(max_length=5000, null=True)
     
     def __str__(self):
         return self.user.username

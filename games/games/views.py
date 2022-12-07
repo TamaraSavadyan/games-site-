@@ -3,8 +3,10 @@ from django.views import View
 
 
 class HomeView(View):
+    template = 'home.html'
+    
     def get(self, request):
-        return render(request, 'home.html', {})
+        return render(request, self.template, {})
 
 class SuccessView(View):
     def get(self, request):
