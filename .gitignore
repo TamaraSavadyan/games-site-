@@ -2,3 +2,5 @@
 *.sw[po]
 *~
 games/secrets.json
+venv/
+.env
