@@ -1,2 +1,3 @@
 # games-site-
-Free-games site project
+Free-games site project. A website, where you can play various games in your browser, such as Sudoku, Minesweeper, Wordle. I'm planning to add more.
+Used stack: Django, JS, HTML, CSS
