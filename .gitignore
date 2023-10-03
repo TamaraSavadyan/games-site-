@@ -4,3 +4,4 @@
 games/secrets.json
 venv/
 .env
+.envs/
